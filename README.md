@@ -29,7 +29,9 @@ All .cpp files presented here will have the following info
 
 #### A) LaserCoolingPlusExpansionMDQT.cpp
 
-Description: This code will run the laser cooling and expansion MolecularDynamics + Quantum-Trajectories (MDQT) code described in Chapter 4 of the thesis.  
+##### Description: 
+
+This code will run the laser cooling and expansion MolecularDynamics + Quantum-Trajectories (MDQT) code described in Chapter 4 of the thesis.  
 
 ##### User Inputs: 
 
