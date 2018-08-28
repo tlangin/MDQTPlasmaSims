@@ -41,7 +41,7 @@ The user will provide
 2) density (plasma density in units 10^14 m^-3.  For simulations in thesis this was set to 2.0)
 3) sig0 (size of the plasma in units mm.  In thesis this was 4.0)
 4) Te (electron temperature: theoretically this should be calculated from Ge and density, but in practice we just input it.  For thesis this was 19.0)
-5) fracOfSig (sets the initial position of the 'chunk' of plasma you are simulating (Chatper 4.6.2 of TKL thesis).  Thesis includes data where this was 0.0 (e.g., the plasma center), 0.5, and 1.0
+5) fracOfSig (sets the initial position of the 'chunk' of plasma you are simulating (Chatper 4.6.2 of TKL thesis).  Thesis includes data where this was 0.0 (e.g., the plasma center), 0.5, and 1.0)
 6) N0 (the number of particles, typically 3000)
 7) detuning (detuning of S-> P lasers in units of \gamma_{SP}=1.41e8 s^-1.  Set to -1.0 for all thesis data)
 8) detuningDP (detuning of D->P lasers in units of \gamma_{SP}.  Typically set to either +1.0 (for best cooling data) or 0.0 (for EIT supression data))
