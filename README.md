@@ -20,8 +20,11 @@ In some simulations, we also record the wavefunction of the ions, which is evolv
 All .cpp files presented here will have the following info
 
 Description: Brief description of file
+
 User Inputs: List of user inputs (plasma density, laser detunings, etc.)
+
 Compile Instructions (NOTE: To SUBMIT jobs after compilation see the description for the exampleSlurmFile.slurm (the last file in this section))
+
 Output Directory Structure and File Type List: Tells you where the simulation 'data' will be stored and what types of files are recorded: for deeper decription of file types see Section III: List of typical output files
 
 #### A) LaserCoolingPlusExpansionMDQT.cpp
@@ -58,11 +61,11 @@ where the underscores indicate, in order
 4) Te
 5) fracOfSig X 100
 6) detuning X 100
-detuningDP X 100
-Om X 100
-OmDP X 100
-N0
-Job Number (the number of jobs will be set by the slurm file).
+7) detuningDP X 100
+8) Om X 100
+9) OmDP X 100
+10) N0
+11) Job Number (the number of jobs will be set by the slurm file).
 
 Each job directory will contain output files of type: conditions_timestep___, energies, ions_timestep__, statePopulationsVsVTime__, vel_distX_time___, vel_DistY_time__, vel_DistZ_time__, VZERO_timestep__interval_, wvFns__.  For description of what these mean, see III: List of typical output files
 
