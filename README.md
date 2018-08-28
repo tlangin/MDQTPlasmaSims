@@ -4,7 +4,9 @@ repository of code used for combined molecular dynamics &amp; quantum trajectori
 ## TABLE OF CONTENTS
 
 I Introduction
+
 II List of .cpp and .slurm files with brief description and list of input parameters (typically within first 100 lines of .cpp files) and instructions for running the code
+
 III List of typical output files
 
 ### I Introduction
