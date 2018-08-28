@@ -44,7 +44,8 @@ Compile Instructions:
 
 1) on cluster after loading into /scratch/USERNAME/(whatever sub directory you want to store this in): First type "module load GCC/4.9.3" (no quotes).  Then type
 
-g++ -std=c++11 -fopenmp -o runFile -O3 LaserCoolingPlusExpansionMDQT.cpp -lm -I/home/USERNAME/usr/include -L/users/USERNAME/user/lib64             
+g++ -std=c++11 -fopenmp -o runFile -O3 LaserCoolingPlusExpansionMDQT.cpp -lm -I/home/USERNAME/usr/include -L/users/USERNAME/user/lib64   
+
 2) on home computer (assuming you have installed armadillo package).  Type
 
 g++ -std=c++11 -fopenmp -o runFile -O3 LaserCoolingPlusExpansionMDQT.cpp -lm -larmadillo
