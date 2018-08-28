@@ -44,11 +44,7 @@ Compile Instructions:
 
 1) on cluster after loading into /scratch/USERNAME/(whatever sub directory you want to store this in): First type "module load GCC/4.9.3" (no quotes).  Then type "g++ -std=c++11 -fopenmp -o runFile -O3 LaserCoolingPlusExpansionMDQT.cpp -lm -I/home/USERNAME/usr/include -L/users/USERNAME/user/lib64" where 'runFile' is whatever you want to name the executable and USERNAME is your username (e.g., I would use tkl1)
 
-2) on home computer (assuming you have installed armadillo package).  Type
-
-g++ -std=c++11 -fopenmp -o runFile -O3 LaserCoolingPlusExpansionMDQT.cpp -lm -larmadillo
-
-where 'runFile' is whatever you want to name the executable
+2) on home computer (assuming you have installed armadillo package).  Type "g++ -std=c++11 -fopenmp -o runFile -O3 LaserCoolingPlusExpansionMDQT.cpp -lm -larmadillo" where 'runFile' is whatever you want to name the executable
 
 Output Directory Structure and File Type List: Output Files will be stored in subdirectories of form ../(directory the cpp file is in)/saveDirectory(see Above)/Ge__Density__E+11Sig0__Te__SigFrac_DetSP__DetDP__OmSP__OmDP__NumIons__/job__/
 
