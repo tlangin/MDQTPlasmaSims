@@ -19,13 +19,13 @@ In some simulations, we also record the wavefunction of the ions, which is evolv
 
 All .cpp files presented here will have the following info
 
-Description: Brief description of file
+**Description**: Brief description of file
 
-User Inputs: List of user inputs (plasma density, laser detunings, etc.)
+**User Inputs**: List of user inputs (plasma density, laser detunings, etc.)
 
-Compile Instructions (NOTE: To SUBMIT jobs after compilation see the description for the exampleSlurmFile.slurm (the last file in this section))
+**Compile Instructions** (NOTE: To SUBMIT jobs after compilation see the description for the exampleSlurmFile.slurm (the last file in this section))
 
-Output Directory Structure and File Type List: Tells you where the simulation 'data' will be stored and what types of files are recorded: for deeper decription of file types see Section III: List of typical output files
+**Output Directory Structure and File Type List**: Tells you where the simulation 'data' will be stored and what types of files are recorded: **for deeper decription of output file types see Section III: List of typical output files**
 
 #### A) LaserCoolingPlusExpansionMDQT.cpp
 
@@ -57,7 +57,7 @@ The user will provide
 
 Output Files will be stored in subdirectories of form 
 
-"saveDirectory(see Above)/Ge__Density__E+11Sig0__Te__SigFrac_DetSP__DetDP__OmSP__OmDP__NumIons__/job__/"
+"**saveDirectory(see Above)**/Ge__Density__E+11Sig0__Te__SigFrac_DetSP__DetDP__OmSP__OmDP__NumIons__/job__/"
 
 where the underscores indicate, in order
 
@@ -73,5 +73,15 @@ where the underscores indicate, in order
 10) N0
 11) Job Number (the number of jobs will be set by the slurm file).
 
-Each job directory will contain output files of type: conditions_timestep___, energies, ions_timestep__, statePopulationsVsVTime__, vel_distX_time___, vel_DistY_time__, vel_DistZ_time__, VZERO_timestep__interval_, wvFns__.  For description of what these mean, see III: List of typical output files
+Each job directory will contain output files of type: 
+
+1) conditions_timestep___
+2) energies
+3) ions_timestep__
+4) statePopulationsVsVTime__
+5) vel_distX_time___, vel_DistY_time__, vel_DistZ_time__ 
+6) VZERO_timestep__interval_
+7) wvFns__.  
+
+For description of what these mean, see **III: List of typical output files**
 
