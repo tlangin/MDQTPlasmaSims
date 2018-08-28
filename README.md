@@ -55,12 +55,12 @@ Output Directory Structure and File Type List: Output Files will be stored in su
 
 where the underscores indicate, in order
 
-Ge X 100
-density X 1000
-sig0 X 10
-Te
-fracOfSig X 100
-detuning X 100
+1) Ge X 100
+2) density X 1000
+3) sig0 X 10
+4) Te
+5) fracOfSig X 100
+6) detuning X 100
 detuningDP X 100
 Om X 100
 OmDP X 100
