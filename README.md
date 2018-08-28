@@ -31,7 +31,9 @@ Output Directory Structure and File Type List: Tells you where the simulation 'd
 
 Description: This code will run the laser cooling and expansion MolecularDynamics + Quantum-Trajectories (MDQT) code described in Chapter 4 of the thesis.  
 
-User Inputs: The user will provide
+##### User Inputs: 
+
+The user will provide
 
 1) Ge: Electron \Gamma (typically 0.1)
 2) density (plasma density in units 10^14 m^-3.  For simulations in thesis this was set to 2.0)
@@ -45,13 +47,17 @@ User Inputs: The user will provide
 10) OmDP (Rabi frequency of D->P transition w/o C-G coeffs in units \gamma_{SP}.  Typically 1.0)
 11) char saveDirectory[256] : name of "head" folder where output data will be stored
 
-Compile Instructions:
+##### Compile Instructions:
 
 1) on cluster after loading into /scratch/USERNAME/(whatever sub directory you want to store this in): First type "module load GCC/4.9.3" (no quotes).  Then type "g++ -std=c++11 -fopenmp -o runFile -O3 LaserCoolingPlusExpansionMDQT.cpp -lm -I/home/USERNAME/usr/include -L/users/USERNAME/user/lib64" where 'runFile' is whatever you want to name the executable and USERNAME is your username (e.g., I would use tkl1)
 
 2) on home computer (assuming you have installed armadillo package).  Type "g++ -std=c++11 -fopenmp -o runFile -O3 LaserCoolingPlusExpansionMDQT.cpp -lm -larmadillo" where 'runFile' is whatever you want to name the executable
 
-Output Directory Structure and File Type List: Output Files will be stored in subdirectories of form ../(directory the cpp file is in)/saveDirectory(see Above)/Ge__Density__E+11Sig0__Te__SigFrac_DetSP__DetDP__OmSP__OmDP__NumIons__/job__/
+##### Output Directory Structure and File Type List: 
+
+Output Files will be stored in subdirectories of form 
+
+"saveDirectory(see Above)/Ge__Density__E+11Sig0__Te__SigFrac_DetSP__DetDP__OmSP__OmDP__NumIons__/job__/"
 
 where the underscores indicate, in order
 
