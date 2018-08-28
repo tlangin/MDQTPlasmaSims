@@ -55,17 +55,17 @@ Output Directory Structure and File Type List: Output Files will be stored in su
 
 where the underscores indicate, in order
 
-Ge*100
-density*1000
-sig0*10
+Ge X 100
+density X 1000
+sig0 X 10
 Te
-fracOfSig*100
-detuning*100
-detuningDP*100
-Om*100
-OmDP*100
+fracOfSig X 100
+detuning X 100
+detuningDP X 100
+Om X 100
+OmDP X 100
 N0
 Job Number (the number of jobs will be set by the slurm file).
 
-Each job directory will contain output files of type: conditions_timestep___, energies, ions_timestep___, statePopulationsVsVTime_____, vel_distX_time___, vel_DistY_time____, vel_DistZ_time____, VZERO_timestep_______,_interval_, wvFns_.  For description of what these mean, see III: List of typical output files
+Each job directory will contain output files of type: conditions_timestep___, energies, ions_timestep__, statePopulationsVsVTime__, vel_distX_time___, vel_DistY_time__, vel_DistZ_time__, VZERO_timestep__interval_, wvFns__.  For description of what these mean, see III: List of typical output files
 
