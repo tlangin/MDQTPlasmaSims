@@ -89,11 +89,11 @@ For description of what these mean, see **III: List of typical output files**
 
 # III: List of typical output files
 
-##energies.dat
+## energies.dat
 
 Probably the most important one when considering laser-cooling simulations.  First column is time (units of \omega_{E}^-1).  Second column is "x kinetic energy" in units 0.5\Gamma^-1.  Third and fourth are Y and Z kinetic energies.  Fifth is total potential energy divided by number of particles.  Sixth is total energy at time 't' minus total energy at time '0' (so, this will become increasingly negative as ions are laser-cooled).  Seventh is mean x velocity (useful when considering ions in an expanding plasma...ignore if 'fracOfSig = 0').
 
-##statePopulationsVsVTime____ .dat
+## statePopulationsVsVTime____ .dat
 
 title reflects what time of the simulation the state populations are recorded (e.g., statePopulationsVsVTime000400.dat will refer to the '400th' time for which things are recorded, which is the 400th entry in the first column of 'energies.dat').  There will be N rows where N is the number of particles.  For a given row i:
 
@@ -104,15 +104,15 @@ Column 4 refers to the "d" population of particle i.
 
 This is primarily useful when looking for dark states.  Just bin column 3 (the P population) vs column 1 to get a P_{p}(v) plot, the population of being in a "P" state as a function of velocity: dips in this plot correspond to dark state locations (see TKL thesis 4.5)
 
-##vel_distX_time___ .dat (and vel_distY, vel_distZ)
+## vel_distX_time___ .dat (and vel_distY, vel_distZ)
 
 title again reflects the "time" for which this file corresponds to.  This is basically the velocity distribution of the ion.  Column 1 is a value of v-<v_x>.  Column 2 represents the number of particles at this velocity value.  
 
-##VAF_interval0.dat
+## VAF_interval0.dat
 
 ignore this in laser-cooling code.
 
-##J_interval0.dat
+## J_interval0.dat
 
 ignore this in laser-cooling code
 
