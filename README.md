@@ -88,13 +88,13 @@ where the underscores indicate, in order
 
 Each job directory will contain output files of type: 
 
-1) conditions_timestep___
+1) conditions_timestepXXX
 2) energies
-3) ions_timestep__
+3) ions_timestepXXX
 4) statePopulationsVsVTime__
 5) vel_distX_time___, vel_DistY_time__, vel_DistZ_time__ 
 6) VZERO_timestep__interval_
-7) wvFns__.  
+7) wvFns__timestepXXX.  
 
 For description of what these mean, see **III: List of typical output files**
 
@@ -127,4 +127,15 @@ ignore this in laser-cooling code.
 
 ignore this in laser-cooling code
 
+## conditions_timestepXXX.dat
+
+When simulation concludes, ion positions (columns 1 thru 3) and velocities (columns 4 thru 6) are recorded.  This are then read in whenever a simulation is continued by setting newRun=0 and c0 = XXX.
+
+## wvFns_timestepXXX.dat
+
+When simulation concludes, ion wavefunctions are also recorded (1 row per particle.  1st and 2nd entry are the real and imaginary componens of <\psi|1>, 3rd and 4th are real and imaginary components of <\psi|2>, etc., where |1>, |2>, etc. are the eigenstates as described in TKL thesis and |\psi> is the ion wavefunction). This are then read in whenever a simulation is continued by setting newRun=0 and c0 = XXX.
+
+## ions_timestepXXX.dat
+
+When simulation concludes, the total number of ions in this run is saved and read in whenever a simulation is continued by setting newRun=0 and c0 = XXX.
 
