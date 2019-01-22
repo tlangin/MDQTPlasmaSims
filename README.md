@@ -48,6 +48,9 @@ The user will provide
 9) Om (Rabi frequency of S->P transition w/o inclusion of C-G coefficients (these are defined in 'main()' at the end of the file) in units \gamma_{SP}.  Typically 1.0 for thesis data)
 10) OmDP (Rabi frequency of D->P transition w/o C-G coeffs in units \gamma_{SP}.  Typically 1.0)
 11) char saveDirectory[256] : name of "head" folder where output data will be stored
+12) int newRun: 1 if a new run, 0 if continuing a run.  Sometimes you will want to run the simulation for a time longer than 8 hours (for 3500 particles tmax is roughly 37...so choose 30 or less to be safe!).  At the end of the simulation, conditions will be recorded (conditions_timestepXXX_.dat, ions_timestepXXX.dat, wvFns_timestepXXX.dat).  If newRun=0 (and c0 is set appropriately, see next variable), these will be read in.  If newRun=1, c0 should be 0 and initial conditions are random.
+13) int c0: timestep counter.  set c0=0 if newRun=1.  If newRun=0, then c0 should correspond to the timestamp of the conditions you want read (e.g., if, when the simulation ended, the output files are "conditions_timestep022500.dat" (etc.), then c0 should be 022500).
+14) tmax: maximum simulation time.  Note that this is for the total simulation, including previous runs (i.e., if you finished a simulation with tmax=30 and you want to continue for another 30 time units, set newRun=0, c0 to whatever it's supposed to be, and tmax=60).
 
 ### Compile Instructions:
 
