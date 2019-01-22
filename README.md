@@ -54,9 +54,17 @@ The user will provide
 
 ### Compile Instructions:
 
-1) on cluster after loading into /scratch/**USERNAME**/(whatever sub directory you want to store this in): First type "module load GCC/4.9.3" (no quotes).  Then type "g++ -std=c++11 -fopenmp -o **runFile** -O3 LaserCoolingPlusExpansionMDQT.cpp -lm -I/home/USERNAME/usr/include -L/users/**USERNAME**/user/lib64" where '**runFile**' is whatever you want to name the executable and **USERNAME** is your username (e.g., I would use tkl1)
+1) on cluster after loading into /scratch/**USERNAME**/(whatever sub directory you want to store this in): First enter "module load GCC/5.4.0" (no quotes).  Then enter "module load OpenMPI/1.10.3".  Then enter "module load Armadillo/7.600.1".   Then enter "g++ -std=c++11 -fopenmp -o **runFile** -O3 LaserCoolingPlusExpansionMDQT.cpp -lm -larmadillo" where '**runFile**' is whatever you want to name the executable to compile.  
 
 2) on home computer (assuming you have installed armadillo package).  Type "g++ -std=c++11 -fopenmp -o **runFile** -O3 LaserCoolingPlusExpansionMDQT.cpp -lm -larmadillo" where '**runFile**' is whatever you want to name the executable
+
+### Run Instructions On Cluster:
+
+To run your code on cluster, you need to set up a SLURM file (I've attached one to this github).  First, open the slurm file and make sure you are running as many jobs as you want (e.g., if you want ten jobs, #SBATCH --array=1-10) and that you are running the correct file (e.g., if you have compiled into an executable named "testFile", then there should be a statement like "srun testFile $SLURM_ARRAY_TASK_ID).  Finally, if you want email updates, set #SBATCH --mail-user=blah@rice.edu (or whatever...the cluster can email gmail as well).  Once your slurm file is setup, to run type
+
+sbatch slurmFile.slurm
+
+This will submit your jobs to the cluster
 
 ### Output Directory Structure and File Type List: 
 
