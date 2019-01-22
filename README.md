@@ -98,6 +98,8 @@ Each job directory will contain output files of type:
 
 For description of what these mean, see **III: List of typical output files**
 
+## B) otherFiles.cpp (placeholder)
+
 # III: List of typical output files
 
 ## energies.dat
