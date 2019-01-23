@@ -41,14 +41,14 @@ The user will provide
 2) density (plasma density in units 10^14 m^-3.  For simulations in thesis this was set to 2.0)
 3) sig0 (size of the plasma in units mm.  In thesis this was 4.0)
 4) Te (electron temperature: theoretically this should be calculated from Ge and density, but in practice we just input it.  For thesis this was 19.0)
-5) fracOfSig (sets the initial position of the 'chunk' of plasma you are simulating (Chatper 4.6.2 of TKL thesis).  Thesis includes data where this was 0.0 (e.g., the plasma center), 0.5, and 1.0)
-6) N0 (the number of particles, typically 3000)
+5) fracOfSig (sets the initial position of the 'chunk' of plasma you are simulating (Chatper 4.6.2 of TKL thesis).  Thesis includes data where this was 0.0 (e.g., the plasma center), 0.5 (x=+2mm), and 1.0 (x=+4mm, for \sigma = 4 mm))
+6) N0 (the number of particles, typically 3500)
 7) detuning (detuning of S-> P lasers in units of \gamma_{SP}=1.41e8 s^-1.  Set to -1.0 for all thesis data)
 8) detuningDP (detuning of D->P lasers in units of \gamma_{SP}.  Typically set to either +1.0 (for best cooling data) or 0.0 (for EIT supression data))
 9) Om (Rabi frequency of S->P transition w/o inclusion of C-G coefficients (these are defined in 'main()' at the end of the file) in units \gamma_{SP}.  Typically 1.0 for thesis data)
 10) OmDP (Rabi frequency of D->P transition w/o C-G coeffs in units \gamma_{SP}.  Typically 1.0)
 11) char saveDirectory[256] : name of "head" folder where output data will be stored
-12) int newRun: 1 if a new run, 0 if continuing a run.  Sometimes you will want to run the simulation for a time longer than 8 hours (for 3500 particles tmax is roughly 37...so choose 30 or less to be safe!).  At the end of the simulation, conditions will be recorded (conditions_timestepXXX_.dat, ions_timestepXXX.dat, wvFns_timestepXXX.dat).  If newRun=0 (and c0 is set appropriately, see next variable), these will be read in.  If newRun=1, c0 should be 0 and initial conditions are random.
+12) int newRun: 1 if a new run, 0 if continuing a run.  Sometimes you will want to run the simulation for a time longer than 8 hours (for 3500 particles, 8 hours corresponds to a total simulation time of 37 time units...so choose tmax = 30 or less to be safe!).  At the end of the simulation, conditions will be recorded (conditions_timestepXXX_.dat, ions_timestepXXX.dat, wvFns_timestepXXX.dat).  If newRun=0 (and c0 is set appropriately, see next variable), these will be read in.  If newRun=1, c0 should be 0 and initial conditions are random.
 13) int c0: timestep counter.  set c0=0 if newRun=1.  If newRun=0, then c0 should correspond to the timestamp of the conditions you want read (e.g., if, when the simulation ended, the output files are "conditions_timestep022500.dat" (etc.), then c0 should be 022500).
 14) tmax: maximum simulation time.  Note that this is for the total simulation, including previous runs (i.e., if you finished a simulation with tmax=30 and you want to continue for another 30 time units, set newRun=0, c0 to whatever it's supposed to be, and tmax=60).
 
