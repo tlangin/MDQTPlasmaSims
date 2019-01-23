@@ -27,7 +27,7 @@ All .cpp files presented here will have the following info
 
 **Output Directory Structure and File Type List**: Tells you where the simulation 'data' will be stored and what types of files are recorded: **for deeper decription of output file types see Section III: List of typical output files**
 
-## A) LaserCoolingPlusExpansionMDQT.cpp
+## A) LaserCoolingPlusExpansionMDQT.cpp (note: as of 01/23/19 use updated code LaserCoolingPlusExpansionMDQTSpeedUp.cpp)
 
 ### Description: 
 
