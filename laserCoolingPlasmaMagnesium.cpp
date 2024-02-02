@@ -68,9 +68,7 @@ double Te=19.0;                    //in units kelvin
 double fracOfSig=0;            //location of plasma chunk in fractions of sigma.  make this 0 for a non moving frame
 #define N0 3500                // average particle number in simulation cell
 double detuning=-1;//SP detuning normalized by \gamma_{SP}
-double detuningDP=1;//DP detuning normalized by \gamma_{SP} (not a typo: all "quantum times" normalized by \gamma_{SP}, see TKL PhD Thesis
 double Om=1;//SP Rabi Freq norm by \gamma_{SP}
-double OmDP=1;//DP Rabi Frequency nrom by \gamma_{SP}
 bool reNormalizewvFns=false;
 
 /* other input variables: You'll probably never want to change these*/
@@ -143,14 +141,11 @@ int number[numberOfIntervalV];
 
 /*QUANTUM STUFF*/
 //cooling parameters
-double decayRatioD5Halves=0.0617;
-double kRat = 0.395;
 double vKick = 0.001208/plasVelToQuantVel;
-double vKickDP = vKick*kRat;
 //waveFunctions
 cx_mat wvFns[N0+1000];
 double tPart[N0+1000];
-double numStates = 12;
+double numStates = 6;
 mat ident = mat(numStates,numStates,fill::eye);
 //naming convention same as in TKL thesis:  wvFn1=|1\rangle = S mJ=-1/2, etc.
 cx_mat wvFn1=cx_mat(ident.col(0),mat(numStates,1,fill::zeros));//S mJ=-1/2
@@ -159,17 +154,10 @@ cx_mat wvFn3=cx_mat(ident.col(2),mat(numStates,1,fill::zeros));//P mJ=+3/2
 cx_mat wvFn4=cx_mat(ident.col(3),mat(numStates,1,fill::zeros));//P mJ=+1/2
 cx_mat wvFn5=cx_mat(ident.col(4),mat(numStates,1,fill::zeros));//P mJ=-1/2
 cx_mat wvFn6=cx_mat(ident.col(5),mat(numStates,1,fill::zeros));//P mJ=-3/2
-cx_mat wvFn7=cx_mat(ident.col(6),mat(numStates,1,fill::zeros));//D mJ=-5/2
-cx_mat wvFn8=cx_mat(ident.col(7),mat(numStates,1,fill::zeros));//D mJ=-3/2
-cx_mat wvFn9=cx_mat(ident.col(8),mat(numStates,1,fill::zeros));//D mJ=-1/2
-cx_mat wvFn10=cx_mat(ident.col(9),mat(numStates,1,fill::zeros));//D mJ=+1/2
-cx_mat wvFn11=cx_mat(ident.col(10),mat(numStates,1,fill::zeros));//D mJ=+3/2
-cx_mat wvFn12=cx_mat(ident.col(11),mat(numStates,1,fill::zeros));//D mJ=+5/2 (NOTE: only take decay to D_{5/2} into account
-//I added the 3/2 D state and repumping via 422 at one point, but it didn't really affect anything and made the sim take way longer...)
 
 //decay coupling and rates
-cx_mat cs[18];
-double gs[18];
+cx_mat cs[6];
+double gs[6];
 cx_mat hamDecayTerm=cx_mat(mat(numStates,numStates,fill::zeros),mat(numStates,numStates,fill::zeros));//now factor in the decay type terms
 cx_mat decayMatrix = cx_mat(mat(numStates,numStates,fill::zeros),mat(numStates,numStates,fill::zeros));//now factor in the coupling type terms
 cx_mat hamCouplingTermNoTimeDep=cx_mat(mat(numStates,numStates,fill::zeros),mat(numStates,numStates,fill::zeros));//now factor in the coupling type terms
@@ -452,26 +440,18 @@ void qstep(void)
   cx_mat p14;
   cx_mat p25;
   cx_mat p16;
-  cx_mat p96;
-  cx_mat p105;
-  cx_mat p114;
-  cx_mat p123;
-  cx_mat p76;
-  cx_mat p85;
-  cx_mat p94;
-  cx_mat p103;
   //hamiltonian and various terms
   double totalDetRightSP,totalDetLeftSP,dp,rand,dtHalf,prefactor;
-  cx_mat hamCouplingTerm,hamEnergyTermP,hamEnergyTermD,hamEnergyTerm,hamWithoutDecay,hamil;
+  cx_mat hamCouplingTerm,hamEnergyTerm,hamWithoutDecay,hamil;
   cx_mat matPrefactor,wvFnStepped,k1,k2,k3,k4,wvFnk1,wvFnk2,wvFnk3;
-  cx_mat dpmatTerms[18];
+  cx_mat dpmatTerms[6];
   double rand2,rand3,norm3,norm4,norm5,norm6,totalNorm,prob3,prob4,prob5,prob6,randDOrS,randDir;
   bool sDecay;
-  double popS,popP,popD;
+  double popS,popP;
 
   /*begin parallel*/  //yeah i know it's a lot of variables...
 
-#pragma omp parallel private(i,j,wvFn,velQuant,velPlas,kick,densMatrix,p23,p14,p25,p16,p96,p105,p114,p123,p76,p85,p94,p103,totalDetRightSP,totalDetLeftSP,dp,rand,dtHalf,prefactor,hamCouplingTerm,hamEnergyTermP,hamEnergyTermD,hamEnergyTerm,dpmat,hamWithoutDecay,hamil,matPrefactor,wvFnStepped,k1,k2,k3,k4,wvFnk1,wvFnk2,wvFnk3,dpmatTerms,rand2,rand3,norm3,norm4,norm5,norm6,totalNorm,prob3,prob4,prob5,prob6,randDOrS,randDir,sDecay,popS,popP,popD) shared(V,R,N,wvFns,plasVelToQuantVel,gamToEinsteinFreq,cs,wvFn1,wvFn2,wvFn3,wvFn4,wvFn5,wvFn6,wvFn7,wvFn8,wvFn9,wvFn10,wvFn11,wvFn12,vKick,Om,detuning,detuningDP,OmDP,decayRatioD5Halves,gs,I,kRat,numStates,zero_mat1,dtQuant,expDetuning,tPart,hamCouplingTermNoTimeDep,decayMatrix,hamDecayTerm)
+#pragma omp parallel private(i,j,wvFn,velQuant,velPlas,kick,densMatrix,p23,p14,p25,p16,totalDetRightSP,totalDetLeftSP,dp,rand,dtHalf,prefactor,hamCouplingTerm,hamEnergyTerm,dpmat,hamWithoutDecay,hamil,matPrefactor,wvFnStepped,k1,k2,k3,k4,wvFnk1,wvFnk2,wvFnk3,dpmatTerms,rand2,rand3,norm3,norm4,norm5,norm6,totalNorm,prob3,prob4,prob5,prob6,randDir,sDecay,popS,popP) shared(V,R,N,wvFns,plasVelToQuantVel,gamToEinsteinFreq,cs,wvFn1,wvFn2,wvFn3,wvFn4,wvFn5,wvFn6,vKick,Om,detuning,gs,I,numStates,zero_mat1,dtQuant,expDetuning,tPart,hamCouplingTermNoTimeDep,decayMatrix,hamDecayTerm)
   {
 #pragma omp for 
   
@@ -492,23 +472,13 @@ void qstep(void)
 	p14 = wvFn1.t()*densMatrix*wvFn4;
 	p25 = wvFn2.t()*densMatrix*wvFn5;
 	p16 = wvFn1.t()*densMatrix*wvFn6;
-	p96 = wvFn9.t()*densMatrix*wvFn6;
-	p105 = wvFn10.t()*densMatrix*wvFn5;
-	p114 = wvFn11.t()*densMatrix*wvFn4;
-	p123 = wvFn12.t()*densMatrix*wvFn3;
-	p76 = wvFn7.t()*densMatrix*wvFn6;
-	p85 = wvFn8.t()*densMatrix*wvFn5;
-	p94 = wvFn9.t()*densMatrix*wvFn4;
-	p103 = wvFn10.t()*densMatrix*wvFn3;
-	kick = 1*vKick*Om*(p23(0,0).imag()*gs[0]+p14(0,0).imag()*gs[2]-p25(0,0).imag()*gs[4]-p16(0,0).imag()*gs[5])*dtQuant*gamToEinsteinFreq+vKickDP*(OmDP/decayRatioD5Halves)*(p96(0,0).imag()*gs[8]+p105(0,0).imag()*gs[11]+p114(0,0).imag()*gs[14]+p123(0,0).imag()*gs[17]-p76(0,0).imag()*gs[6]-p85(0,0).imag()*gs[9]-p94(0,0).imag()*gs[12]-p103(0,0).imag()*gs[15])*dtQuant*gamToEinsteinFreq;//dhange in velocity due to quantum force, see TKL thesis for full calculation
+	kick = 1*vKick*Om*(p23(0,0).imag()*gs[0]+p14(0,0).imag()*gs[2]-p25(0,0).imag()*gs[4]-p16(0,0).imag()*gs[5])*dtQuant*gamToEinsteinFreq+;//dhange in velocity due to quantum force, see TKL thesis for full calculation
 	
 	//next evolve the wavefunction: first calculate the hamiltonian and various terms
 	totalDetRightSP = -detuning-velQuant-expDetuning;//propegating leftward, from right
 	totalDetLeftSP = -detuning+velQuant+expDetuning;//expDetuning same sign as vel detuning...after all it comes from a velocity
-	hamCouplingTerm = hamCouplingTermNoTimeDep - OmDP/2*wvFn9*wvFn6.t()*gs[8]/sqrt(decayRatioD5Halves)*exp(I*2.*(velQuant+expDetuning)*(1+kRat)*tPart[i]*gamToEinsteinFreq) - OmDP/2*wvFn10*wvFn5.t()*gs[11]/sqrt(decayRatioD5Halves)*exp(I*2.*(expDetuning+velQuant)*(1+kRat)*tPart[i]*gamToEinsteinFreq);
-	hamEnergyTermP = totalDetRightSP*(wvFn3*wvFn3.t()+wvFn4*wvFn4.t())+totalDetLeftSP*(wvFn5*wvFn5.t()+wvFn6*wvFn6.t());//energy terms are of form "Energy" X |n\rangle \langle 
-	hamEnergyTermD = (-detuning+detuningDP+(1-kRat)*(velQuant+expDetuning))*(wvFn7*wvFn7.t()+wvFn8*wvFn8.t())+(-detuning+detuningDP+(kRat-1)*(velQuant+expDetuning))*(wvFn11*wvFn11.t()+wvFn12*wvFn12.t())+(-detuning+detuningDP-velQuant-expDetuning-kRat*(velQuant+expDetuning))*(wvFn9*wvFn9.t()+wvFn10*wvFn10.t());
-	hamEnergyTerm=hamEnergyTermP+hamEnergyTermD;
+	hamCouplingTerm = hamCouplingTermNoTimeDep;
+	hamEnergyTerm = totalDetRightSP*(wvFn3*wvFn3.t()+wvFn4*wvFn4.t())+totalDetLeftSP*(wvFn5*wvFn5.t()+wvFn6*wvFn6.t());//energy terms are of form "Energy" X |n\rangle \langle 
         if(i==0){
 	  //(hamCouplingTerm+hamCouplingTerm.t()).print("HamCoup");
 	  //hamDecayTerm.print("HamDec:");
@@ -706,8 +676,7 @@ void qstep(void)
     if(reNormalizewvFns){
       popS = std::norm(wvFn(0,0)) +std::norm(wvFn(1,0));
       popP = std::norm(wvFn(2,0)) + std::norm(wvFn(3,0)) + std::norm(wvFn(4,0)) + std::norm(wvFn(5,0));
-      popD = std::norm(wvFn(6,0)) + std::norm(wvFn(7,0)) + std::norm(wvFn(8,0)) + std::norm(wvFn(9,0)) + std::norm(wvFn(10,0)) + std::norm(wvFn(11,0));
-      wvFn = wvFn/sqrt(popS+popP+popD);
+      wvFn = wvFn/sqrt(popS+popP);
       wvFns[i] = wvFn;
     }
     
